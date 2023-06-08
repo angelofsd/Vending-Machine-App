@@ -61,7 +61,7 @@ public class VendingMachine {
                 String codeInput = consoleInput.nextLine();
 
             } if (intChoice == 3) {
-                feedMoney();
+                break;
             }
         }
 
