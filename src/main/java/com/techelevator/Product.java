@@ -7,12 +7,12 @@ import java.util.Map;
 public class Product {
     private String slotCode;
     private String productName;
-    private BigDecimal productPrice;
+    private double productPrice;
     private String productType;
     private Integer productQuantity;
 
     //Constructor
-    public Product(String slotCode, String productName, BigDecimal productPrice, String productType, Integer productQuantity) {
+    public Product(String slotCode, String productName, double productPrice, String productType, Integer productQuantity) {
         this.slotCode = slotCode;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -30,7 +30,7 @@ public class Product {
         return productName;
     }
 
-    public BigDecimal getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
@@ -50,7 +50,7 @@ public class Product {
         this.productName = productName;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
+    public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
     }
 

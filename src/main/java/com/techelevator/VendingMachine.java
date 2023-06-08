@@ -12,28 +12,29 @@ public class VendingMachine {
     private double balance = 0.0;
     private List<Product> inventory = new ArrayList<>();
 
-     //Constructor
+    //Constructor
     public VendingMachine() {
         loadVendingMachine("vendingmachine.csv");
     }
+
     private void loadVendingMachine(String filename) {
 
 
-        try(Scanner inventoryScanner = new Scanner(new File(filename))) {
+        try (Scanner inventoryScanner = new Scanner(new File(filename))) {
 
-            while(inventoryScanner.hasNextLine()){
+            while (inventoryScanner.hasNextLine()) {
                 String line = inventoryScanner.nextLine();
                 String[] productInfo = line.split("\\|");
-                String slotCode= productInfo[0];
-                String productName= productInfo[1];
-                BigDecimal productPrice= new BigDecimal(productInfo[2]);
-                String productType= productInfo[3];
-                Product product = new Product(slotCode, productName,productPrice,productType,FULL_QUANTITY);
+                String slotCode = productInfo[0];
+                String productName = productInfo[1];
+                double productPrice = Double.parseDouble(productInfo[2]);
+                String productType = productInfo[3];
+                Product product = new Product(slotCode, productName, productPrice, productType, FULL_QUANTITY);
                 inventory.add(product);
                 //TODO put into a
 
             }
-        }catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println("Sorry an error occurred while loading the inventory");
         }
 
@@ -55,12 +56,24 @@ public class VendingMachine {
             int intChoice = Integer.parseInt(choice);
             if (intChoice == 1) {
                 feedMoney();
-            } if (intChoice == 2) {
+            }
+            if (intChoice == 2) {
                 displayInventory();
-                System.out.println("Please Enter the Product Code:");
-                String codeInput = consoleInput.nextLine();
+                while (true) {
+                    System.out.println("Please Enter the Product Code:");
+                    String codeInput = "";
+                    codeInput = consoleInput.nextLine();
 
-            } if (intChoice == 3) {
+                    Product chosenProduct = getProductByCode(codeInput);
+                    if (chosenProduct == null) {
+                        System.out.println("Please retry with a valid Product Code");
+                    }
+                    balance -= chosenProduct.getProductPrice();
+                    chosenProduct.setProductQuantity(chosenProduct.getProductQuantity() - 1);
+                }
+
+            }
+            if (intChoice == 3) {
                 break;
             }
         }
@@ -68,35 +81,46 @@ public class VendingMachine {
     }
 
 
-public void feedMoney() {
+    public void feedMoney() {
 
-    System.out.println("How much money(whole dollars) do you want to feed into the machine?");
+        System.out.println("How much money(whole dollars) do you want to feed into the machine?");
 
-    Scanner consoleInput = new Scanner(System.in);
-    try {
-        String choice = consoleInput.nextLine();
-        int amount = Integer.parseInt(choice);
+        Scanner consoleInput = new Scanner(System.in);
+        try {
+            String choice = consoleInput.nextLine();
+            int amount = Integer.parseInt(choice);
 
-        balance += amount;
-    } catch (NumberFormatException e) {
-        System.out.println("Please Enter a Whole Dollar Amount!");
+            balance += amount;
+        } catch (NumberFormatException e) {
+            System.out.println("Please Enter a Whole Dollar Amount!");
+        }
+
+
     }
 
+    public Product getProductByCode(String code) {
 
-}
+        for (Product product : inventory) {
+            if (product.getSlotCode().equalsIgnoreCase(code)) {
+                return product;
+            }
+        }
 
-public void displayInventory() {
-    //TODO implement clear screen before menu
-    for( Product product : inventory) {
-        System.out.print("Slot Code: " + product.getSlotCode() + " Product Name: " + product.getProductName() +
-                " Price: " + product.getProductPrice() + " Type: " + product.getProductType() + " Qantity: " +
-                product.getProductQuantity());
+        return null;
+    }
+
+    public void displayInventory() {
+        //TODO implement clear screen before menu
+        for (Product product : inventory) {
+            System.out.print("Slot Code: " + product.getSlotCode() + " Product Name: " + product.getProductName() +
+                    " Price: " + product.getProductPrice() + " Type: " + product.getProductType() + " Qantity: " +
+                    product.getProductQuantity());
+            System.out.println("");
+
+        }
+
         System.out.println("");
-
     }
-
-    System.out.println("");
-}
 
 
 }
