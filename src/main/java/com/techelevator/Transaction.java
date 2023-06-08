@@ -7,7 +7,14 @@ public class Transaction {
     private final double DIME = 0.10;
     private final double QUARTER = 0.25;
 
-    public void productPurchase(VendingMachine vendingMachine) {
+    VendingMachine vendingMachine;
+
+    //Constructor
+    public Transaction(VendingMachine vendingMachine){
+        this.vendingMachine = vendingMachine;
+    }
+
+    public void productPurchase() {
         while (true) {
             Scanner consoleInput = new Scanner(System.in);
             System.out.println("Please Enter the Product Code:");
@@ -19,7 +26,7 @@ public class Transaction {
                 System.out.println("Please retry with a valid Product Code");
             }
             if (chosenProduct.getProductQuantity() > 0) {
-                vendingMachine.setBalance(vendingMachine.getBalance()- chosenProduct.getProductPrice());
+                vendingMachine.setBalance(vendingMachine.getBalance() - chosenProduct.getProductPrice());
                 chosenProduct.setProductQuantity(chosenProduct.getProductQuantity() - 1);
                 System.out.println("Enjoy your " + chosenProduct.getProductName() + "! " + chosenProduct.getSound());
                 break;
@@ -37,8 +44,7 @@ public class Transaction {
         try {
             String choice = consoleInput.nextLine();
             int amount = Integer.parseInt(choice);
-
-            vendingMachine.setBalance += amount;
+            vendingMachine.setBalance(vendingMachine.getBalance() + amount);
         } catch (NumberFormatException e) {
             System.out.println("Please Enter a Whole Dollar Amount!");
         }

@@ -55,6 +55,7 @@ public class VendingMachine {
 
     public void purchaseMenu() {
         while (true) {
+            Transaction currentTransaction = new Transaction(this);
             System.out.println("Current Money Provided: " + balance);
             System.out.println("(1) Feed Money\n(2) Select Product \n(3) Finish Transaction");
 
@@ -62,12 +63,11 @@ public class VendingMachine {
             String choice = consoleInput.nextLine();
             int intChoice = Integer.parseInt(choice);
             if (intChoice == 1) {
-                feedMoney();
+                currentTransaction.feedMoney();
             }
             if (intChoice == 2) {
                 displayInventory();
-                Transaction currentTransaction = new Transaction();
-                currentTransaction.productPurchase(this);
+                currentTransaction.productPurchase();
 
             }
             if (intChoice == 3) {
