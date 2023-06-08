@@ -66,4 +66,18 @@ public class Product {
         return "\nProduct: " + this.productName + " Quantity: " + this.productQuantity;
     }
 
+    public String getSound(){
+        switch (productType){
+            case "Chip":
+                return "Crunch Crunch, Yum!";
+            case "Candy":
+                return "Munch Munch, Yum!";
+            case "Drink":
+                return "Glug Glug, Yum!";
+            case "Gum":
+                return "Chew Chew, Yum!";
+        }
+        return null;
+    }
+
 }

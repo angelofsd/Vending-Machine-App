@@ -7,14 +7,21 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class VendingMachine {
-
-    private final int FULL_QUANTITY = 5;
     private double balance = 0.0;
+    private final int FULL_QUANTITY = 5;
     private List<Product> inventory = new ArrayList<>();
 
     //Constructor
     public VendingMachine() {
         loadVendingMachine("vendingmachine.csv");
+    }
+
+    //Getters and Setters
+    public double getBalance() {
+        return balance;
+    }
+    public void setBalance(double balance){
+        this.balance=balance;
     }
 
     private void loadVendingMachine(String filename) {
@@ -59,21 +66,12 @@ public class VendingMachine {
             }
             if (intChoice == 2) {
                 displayInventory();
-                while (true) {
-                    System.out.println("Please Enter the Product Code:");
-                    String codeInput = "";
-                    codeInput = consoleInput.nextLine();
-
-                    Product chosenProduct = getProductByCode(codeInput);
-                    if (chosenProduct == null) {
-                        System.out.println("Please retry with a valid Product Code");
-                    }
-                    balance -= chosenProduct.getProductPrice();
-                    chosenProduct.setProductQuantity(chosenProduct.getProductQuantity() - 1);
-                }
+                Transaction currentTransaction = new Transaction();
+                currentTransaction.productPurchase(this);
 
             }
             if (intChoice == 3) {
+                System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
                 break;
             }
         }
@@ -81,22 +79,6 @@ public class VendingMachine {
     }
 
 
-    public void feedMoney() {
-
-        System.out.println("How much money(whole dollars) do you want to feed into the machine?");
-
-        Scanner consoleInput = new Scanner(System.in);
-        try {
-            String choice = consoleInput.nextLine();
-            int amount = Integer.parseInt(choice);
-
-            balance += amount;
-        } catch (NumberFormatException e) {
-            System.out.println("Please Enter a Whole Dollar Amount!");
-        }
-
-
-    }
 
     public Product getProductByCode(String code) {
 
