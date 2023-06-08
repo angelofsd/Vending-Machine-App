@@ -7,9 +7,14 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class VendingMachine {
-    private int productQuantity=5;
+
+    private final int FULL_QUANTITY = 5;
     private List<Product> inventory = new ArrayList<>();
 
+     //Constructor
+    public VendingMachine() {
+        loadVendingMachine("vendingmachine.csv");
+    }
     private void loadVendingMachine(String filename) {
 
 
@@ -22,7 +27,7 @@ public class VendingMachine {
                 String productName= productInfo[1];
                 BigDecimal productPrice= new BigDecimal(productInfo[2]);
                 String productType= productInfo[3];
-                Product product = new Product(slotCode, productName,productPrice,productType,productQuantity);
+                Product product = new Product(slotCode, productName,productPrice,productType,FULL_QUANTITY);
                 inventory.add(product);
                 //TODO put into a
 
@@ -35,11 +40,14 @@ public class VendingMachine {
 
     }
 
-    public VendingMachine() {
-        loadVendingMachine("vendingmachine.csv");
+    public void displayItems() {
+        for (Product product : inventory) {
+            System.out.println(product);
+        }
     }
 
-    //displayitems
+
+
 
     //feedmoney
 

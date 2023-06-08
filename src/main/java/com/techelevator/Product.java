@@ -61,5 +61,9 @@ public class Product {
     public void setProductQuantity(Integer productQuantity) {
         this.productQuantity = productQuantity;
     }
+    @Override
+    public String toString() {
+        return "\nProduct: " + this.productName + " Quantity: " + this.productQuantity;
+    }
 
 }

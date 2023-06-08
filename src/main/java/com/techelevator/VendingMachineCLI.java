@@ -21,7 +21,7 @@ public class VendingMachineCLI {
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
-		this.vendingMachine = vendingMachine;
+		this.vendingMachine = new VendingMachine();
 	}
 
 	public void run() {
@@ -29,7 +29,7 @@ public class VendingMachineCLI {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// display vending machine items
+				vendingMachine.displayItems();
 
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
