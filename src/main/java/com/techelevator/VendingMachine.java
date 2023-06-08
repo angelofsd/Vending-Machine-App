@@ -9,6 +9,7 @@ import java.util.*;
 public class VendingMachine {
 
     private final int FULL_QUANTITY = 5;
+    private double balance = 0.0;
     private List<Product> inventory = new ArrayList<>();
 
      //Constructor
@@ -36,8 +37,6 @@ public class VendingMachine {
             System.out.println("Sorry an error occurred while loading the inventory");
         }
 
-
-
     }
 
     public void displayItems() {
@@ -46,10 +45,58 @@ public class VendingMachine {
         }
     }
 
+    public void purchaseMenu() {
+        while (true) {
+            System.out.println("Current Money Provided: " + balance);
+            System.out.println("(1) Feed Money\n(2) Select Product \n(3) Finish Transaction");
+
+            Scanner consoleInput = new Scanner(System.in);
+            String choice = consoleInput.nextLine();
+            int intChoice = Integer.parseInt(choice);
+            if (intChoice == 1) {
+                feedMoney();
+            } if (intChoice == 2) {
+                displayInventory();
+                System.out.println("Please Enter the Product Code:");
+                String codeInput = consoleInput.nextLine();
+
+            } if (intChoice == 3) {
+                feedMoney();
+            }
+        }
+
+    }
 
 
+public void feedMoney() {
 
-    //feedmoney
+    System.out.println("How much money(whole dollars) do you want to feed into the machine?");
+
+    Scanner consoleInput = new Scanner(System.in);
+    try {
+        String choice = consoleInput.nextLine();
+        int amount = Integer.parseInt(choice);
+
+        balance += amount;
+    } catch (NumberFormatException e) {
+        System.out.println("Please Enter a Whole Dollar Amount!");
+    }
+
+
+}
+
+public void displayInventory() {
+    //TODO implement clear screen before menu
+    for( Product product : inventory) {
+        System.out.print("Slot Code: " + product.getSlotCode() + " Product Name: " + product.getProductName() +
+                " Price: " + product.getProductPrice() + " Type: " + product.getProductType() + " Qantity: " +
+                product.getProductQuantity());
+        System.out.println("");
+
+    }
+
+    System.out.println("");
+}
 
 
 }
