@@ -17,9 +17,11 @@ public class VendingMachineCLI {
 
 
 	private Menu menu;
+	private VendingMachine vendingMachine;
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
+		this.vendingMachine = vendingMachine;
 	}
 
 	public void run() {
@@ -30,6 +32,8 @@ public class VendingMachineCLI {
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
+			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
+				break;
 			}
 		}
 	}
