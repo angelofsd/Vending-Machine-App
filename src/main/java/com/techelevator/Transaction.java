@@ -3,9 +3,7 @@ package com.techelevator;
 import java.util.Scanner;
 
 public class Transaction {
-    private final double NICKEL = 0.05;
-    private final double DIME = 0.10;
-    private final double QUARTER = 0.25;
+
 
     VendingMachine vendingMachine;
 

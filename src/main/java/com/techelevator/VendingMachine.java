@@ -11,6 +11,16 @@ public class VendingMachine {
     private final int FULL_QUANTITY = 5;
     private List<Product> inventory = new ArrayList<>();
 
+    private final int NICKEL = 5;
+    private final int QUARTER = 25;
+    private final int DIME = 10;
+
+
+
+    public static void main(String[] args) {
+
+    }
+
     //Constructor
     public VendingMachine() {
         loadVendingMachine("vendingmachine.csv");
@@ -71,10 +81,9 @@ public class VendingMachine {
                 if (intChoice == 2) {
                     displayInventory();
                     currentTransaction.productPurchase();
-
                 }
                 if (intChoice == 3) {
-                    System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
+                    displayCoinsLeft();
                     break;
                 }
             }catch(NumberFormatException ex){
@@ -82,6 +91,58 @@ public class VendingMachine {
             }
 
         }
+
+    }
+
+    private void displayCoinsLeft(){
+        BigDecimal change = new BigDecimal(balance);
+
+        int changeInCents = change.multiply(new BigDecimal("100")).intValue();
+
+
+        int quarters = changeInCents / QUARTER;
+        changeInCents %= QUARTER;
+
+        int dimes = changeInCents / DIME;
+        changeInCents %= DIME;
+
+        int nickels = changeInCents / NICKEL;
+
+
+
+
+
+
+
+
+
+
+
+//        int changeInPennies = (int)(balance / 0.01);
+//        int numberOfQuartersNeeded = 0;
+//        int numberOfDimesNeeded = 0;
+//        int numberOfNickelsNeeded = 0;
+//        while(changeInPennies > 0){
+//            changeInPennies /= QUARTER;
+//            numberOfQuartersNeeded++;
+//            if(changeInPennies <= DIME){
+//                numberOfDimesNeeded++;
+//            }
+//            if(changeInPennies <= NICKEL){
+//                numberOfNickelsNeeded++;
+//            }
+//        }
+
+
+
+        System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
+        System.out.println();
+        System.out.println("Quarters: " + quarters);
+        System.out.println("--------------------------");
+        System.out.println("Dimes: " + dimes);
+        System.out.println("--------------------------");
+        System.out.println("Nickels: " + nickels);
+        System.out.println("--------------------------");
 
     }
 
