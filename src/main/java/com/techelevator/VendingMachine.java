@@ -60,20 +60,27 @@ public class VendingMachine {
             System.out.println("(1) Feed Money\n(2) Select Product \n(3) Finish Transaction");
 
             Scanner consoleInput = new Scanner(System.in);
-            String choice = consoleInput.nextLine();
-            int intChoice = Integer.parseInt(choice);
-            if (intChoice == 1) {
-                currentTransaction.feedMoney();
-            }
-            if (intChoice == 2) {
-                displayInventory();
-                currentTransaction.productPurchase();
 
+            //TODO: surround with try catch block for NumberFormatException
+            try{
+                String choice = consoleInput.nextLine();
+                int intChoice = Integer.parseInt(choice);
+                if (intChoice == 1) {
+                    currentTransaction.feedMoney();
+                }
+                if (intChoice == 2) {
+                    displayInventory();
+                    currentTransaction.productPurchase();
+
+                }
+                if (intChoice == 3) {
+                    System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
+                    break;
+                }
+            }catch(NumberFormatException ex){
+                System.out.println("You did not enter a number. Please try again.");
             }
-            if (intChoice == 3) {
-                System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
-                break;
-            }
+
         }
 
     }

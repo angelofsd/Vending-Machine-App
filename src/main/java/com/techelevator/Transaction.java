@@ -38,16 +38,23 @@ public class Transaction {
 
     public void feedMoney() {
 
-        System.out.println("How much money(whole dollars) do you want to feed into the machine?");
+        //TODO surround with while(true) loop
 
-        Scanner consoleInput = new Scanner(System.in);
-        try {
-            String choice = consoleInput.nextLine();
-            int amount = Integer.parseInt(choice);
-            vendingMachine.setBalance(vendingMachine.getBalance() + amount);
-        } catch (NumberFormatException e) {
-            System.out.println("Please Enter a Whole Dollar Amount!");
+        while(true){
+            System.out.println("How much money(whole dollars) do you want to feed into the machine?");
+
+            Scanner consoleInput = new Scanner(System.in);
+            try {
+                String choice = consoleInput.nextLine();
+                int amount = Integer.parseInt(choice);
+                vendingMachine.setBalance(vendingMachine.getBalance() + amount);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please Enter a Whole Dollar Amount!");
+            }
         }
+
+
 
 
     }
