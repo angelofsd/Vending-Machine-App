@@ -12,7 +12,7 @@ public class Transaction {
         this.vendingMachine = vendingMachine;
     }
 
-    public void productPurchase() {
+    public Product productPurchase() {
         while (true) {
             Scanner consoleInput = new Scanner(System.in);
             System.out.println("Please Enter the Product Code:");
@@ -27,14 +27,14 @@ public class Transaction {
                 vendingMachine.setBalance(vendingMachine.getBalance() - chosenProduct.getProductPrice());
                 chosenProduct.setProductQuantity(chosenProduct.getProductQuantity() - 1);
                 System.out.println("Enjoy your " + chosenProduct.getProductName() + "! " + chosenProduct.getSound());
-                break;
+                return chosenProduct;
             } else {
                 System.out.println("We're sorry but the chosen product is currently OUT OF STOCK");
             }
         }
     }
 
-    public void feedMoney() {
+    public int feedMoney() {
 
         //TODO surround with while(true) loop
 
@@ -46,13 +46,11 @@ public class Transaction {
                 String choice = consoleInput.nextLine();
                 int amount = Integer.parseInt(choice);
                 vendingMachine.setBalance(vendingMachine.getBalance() + amount);
-                break;
+                return amount;
             } catch (NumberFormatException e) {
                 System.out.println("Please Enter a Whole Dollar Amount!");
             }
         }
-
-
 
 
     }

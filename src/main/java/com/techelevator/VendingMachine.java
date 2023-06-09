@@ -3,6 +3,7 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -35,6 +36,11 @@ public class VendingMachine {
     }
 
     private void loadVendingMachine(String filename) {
+        try {
+            PrintWriter fileWriter = new PrintWriter(new File("log.txt"));
+        } catch (Exception e) {
+            System.out.println("Something went wrong writing to file.");
+        }
 
 
         try (Scanner inventoryScanner = new Scanner(new File(filename))) {
@@ -64,6 +70,7 @@ public class VendingMachine {
     }
 
     public void purchaseMenu() {
+        Logger logger = new Logger(this);
         while (true) {
             Transaction currentTransaction = new Transaction(this);
             System.out.println("Current Money Provided: " + balance);
@@ -76,15 +83,22 @@ public class VendingMachine {
                 String choice = consoleInput.nextLine();
                 int intChoice = Integer.parseInt(choice);
                 if (intChoice == 1) {
-                    currentTransaction.feedMoney();
+
+                    logger.log(currentTransaction.feedMoney(),balance, "FEED MONEY");
+
                 }
                 if (intChoice == 2) {
                     displayInventory();
-                    currentTransaction.productPurchase();
+
+                    Product selectedProduct = currentTransaction.productPurchase();
+                    logger.log(selectedProduct.getProductPrice(),balance,selectedProduct.getProductName());;
                 }
                 if (intChoice == 3) {
                     displayCoinsLeft();
+                    logger.log(balance,0,"GIVE CHANGE");
                     balance = 0;
+
+
                     break;
                 }
             }catch(NumberFormatException ex){
