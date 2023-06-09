@@ -20,6 +20,7 @@ public class VendingMachine {
 
     public static void main(String[] args) {
 
+
     }
 
     //Constructor
@@ -94,7 +95,7 @@ public class VendingMachine {
                     logger.log(selectedProduct.getProductPrice(),balance,selectedProduct.getProductName());;
                 }
                 if (intChoice == 3) {
-                    displayCoinsLeft();
+                    displayCoins();
                     logger.log(balance,0,"GIVE CHANGE");
                     balance = 0;
 
@@ -131,6 +132,41 @@ public class VendingMachine {
         System.out.println("Nickels: " + nickels);
         System.out.println("--------------------------");
 
+    }
+    private void displayCoins(){
+        int changeInDollarAmount = (int)balance;
+        String balanceStr = String.valueOf(balance);
+        String[] balanceStrArr = balanceStr.split("\\.");
+        String leftOverStr = balanceStrArr[1];
+        if(leftOverStr.length() == 1){
+            leftOverStr += "0";
+        }
+        int leftOverInPennies = Integer.parseInt(leftOverStr);
+        int numberOfQuartersNeeded = 0;
+        int numberOfDimesNeeded = 0;
+        int numberOfNickelsNeeded = 0;
+        while(leftOverInPennies > 0){
+            if(leftOverInPennies >= 25){
+                leftOverInPennies -= 25;
+                numberOfQuartersNeeded++;
+            }else if(leftOverInPennies > 10){
+                leftOverInPennies -= 10;
+                numberOfDimesNeeded++;
+            }else if(leftOverInPennies >= 5){
+                leftOverInPennies -= 5;
+                numberOfNickelsNeeded++;
+            }
+        }
+        System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
+        System.out.println();
+        System.out.println("Dollars: " + changeInDollarAmount);
+        System.out.println("--------------------------");
+        System.out.println("Quarters: " + numberOfQuartersNeeded);
+        System.out.println("--------------------------");
+        System.out.println("Dimes: " + numberOfDimesNeeded);
+        System.out.println("--------------------------");
+        System.out.println("Nickels: " + numberOfNickelsNeeded);
+        System.out.println("--------------------------");
     }
 
 
