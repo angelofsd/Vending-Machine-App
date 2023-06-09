@@ -95,10 +95,8 @@ public class VendingMachine {
     }
 
     private void displayCoinsLeft(){
-        BigDecimal change = new BigDecimal(balance);
 
-        int changeInCents = change.multiply(new BigDecimal("100")).intValue();
-
+        int changeInCents = (int) Math.round(balance * 100);
 
         int quarters = changeInCents / QUARTER;
         changeInCents %= QUARTER;
@@ -107,6 +105,7 @@ public class VendingMachine {
         changeInCents %= DIME;
 
         int nickels = changeInCents / NICKEL;
+
 
 
 
