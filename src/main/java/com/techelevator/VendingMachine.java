@@ -84,6 +84,7 @@ public class VendingMachine {
                 }
                 if (intChoice == 3) {
                     displayCoinsLeft();
+                    balance = 0;
                     break;
                 }
             }catch(NumberFormatException ex){
@@ -105,33 +106,6 @@ public class VendingMachine {
         changeInCents %= DIME;
 
         int nickels = changeInCents / NICKEL;
-
-
-
-
-
-
-
-
-
-
-
-
-//        int changeInPennies = (int)(balance / 0.01);
-//        int numberOfQuartersNeeded = 0;
-//        int numberOfDimesNeeded = 0;
-//        int numberOfNickelsNeeded = 0;
-//        while(changeInPennies > 0){
-//            changeInPennies /= QUARTER;
-//            numberOfQuartersNeeded++;
-//            if(changeInPennies <= DIME){
-//                numberOfDimesNeeded++;
-//            }
-//            if(changeInPennies <= NICKEL){
-//                numberOfNickelsNeeded++;
-//            }
-//        }
-
 
 
         System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
