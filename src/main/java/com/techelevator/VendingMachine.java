@@ -12,10 +12,9 @@ public class VendingMachine {
     private final int FULL_QUANTITY = 5;
     private List<Product> inventory = new ArrayList<>();
     private final int QUARTER = 25;
-
-
-
-
+    private final int DIME = 10;
+    private final int NICKEL = 5;
+    private final int PENNY = 1;
 
 
     //Constructor
@@ -101,27 +100,20 @@ public class VendingMachine {
     }
 
     private void displayCoinsLeft(){
-
-        int changeInCents = (int) Math.round(balance * 100);
-
-        int quarters = changeInCents / QUARTER;
-        changeInCents %= QUARTER;
+        int remainingPennies = (int)Math.round(balance * 100);
+        int quarters = 0;
         int dimes = 0;
         int nickels = 0;
-        switch(changeInCents){
-            case 5:
-                nickels++;
-                break;
-            case 10:
-                dimes++;
-                break;
-            case 15:
-                dimes++;
-                nickels++;
-                break;
-            case 20:
-                dimes++;
-                nickels += 2;
+        if(remainingPennies >= QUARTER) {
+            quarters = remainingPennies / QUARTER;
+            remainingPennies %= QUARTER;
+        }
+        if(remainingPennies >= DIME){
+            dimes = remainingPennies / DIME;
+            remainingPennies %= DIME;
+        }
+        if(remainingPennies >=NICKEL){
+            nickels = remainingPennies / NICKEL;
         }
 
         System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
@@ -135,39 +127,27 @@ public class VendingMachine {
 
     }
     private void displayCoins(){
-        int changeInDollarAmount = (int)balance;
-        String balanceStr = String.valueOf(balance);
-        String[] balanceStrArr = balanceStr.split("\\.");
-        String leftOverStr = balanceStrArr[1];
-        if(leftOverStr.length() == 1){
-            leftOverStr += "0";
-        }
-        int leftOverInPennies = Integer.parseInt(leftOverStr);
-        int numberOfQuartersNeeded = 0;
-        int numberOfDimesNeeded = 0;
-        int numberOfNickelsNeeded = 0;
-        while(leftOverInPennies >= 5){
-            if(leftOverInPennies >= 25){
-                leftOverInPennies -= 25;
-                numberOfQuartersNeeded++;
-            }else if(leftOverInPennies > 10){
-                leftOverInPennies -= 10;
-                numberOfDimesNeeded++;
-            }else{
-                leftOverInPennies -= 5;
-                numberOfNickelsNeeded++;
-            }
-        }
+        String[] balanceStrArr = String.valueOf(balance).split("\\.");
+        String penniesAfterDollarsStr = balanceStrArr[1].length() == 1 ? balanceStrArr[1]+="0" : balanceStrArr[1];
+        int penniesAfterDollarAmount = Integer.parseInt(penniesAfterDollarsStr);
+        int dollars = (int)balance;
+        int quarters = penniesAfterDollarAmount / QUARTER;
+        penniesAfterDollarAmount %= QUARTER;
+        int dimes = penniesAfterDollarAmount / DIME;
+        penniesAfterDollarAmount %= DIME;
+        int nickels = penniesAfterDollarAmount / NICKEL;
+
         System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
         System.out.println();
-        System.out.println("Dollars: " + changeInDollarAmount);
+        System.out.println("Dollars: " + dollars);
         System.out.println("--------------------------");
-        System.out.println("Quarters: " + numberOfQuartersNeeded);
+        System.out.println("Quarters: " + quarters);
         System.out.println("--------------------------");
-        System.out.println("Dimes: " + numberOfDimesNeeded);
+        System.out.println("Dimes: " + dimes);
         System.out.println("--------------------------");
-        System.out.println("Nickels: " + numberOfNickelsNeeded);
+        System.out.println("Nickels: " + nickels);
         System.out.println("--------------------------");
+
     }
 
 

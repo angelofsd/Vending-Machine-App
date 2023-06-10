@@ -53,10 +53,8 @@ public class Transaction {
                 vendingMachine.setBalance(Double.parseDouble(String.format("%.2f",vendingMachine.getBalance()))); //makes sure the balance is always at 2 decimal places no matter what
                 return amount;
             } catch (IllegalArgumentException ex){
-                System.out.println(ex);
-            } /*catch (NumberFormatException e) {
-                System.out.println("Please Enter a Whole Dollar Amount!");
-            }*/
+                System.out.println("That is not a valid input.");
+            }
         }
 
 
