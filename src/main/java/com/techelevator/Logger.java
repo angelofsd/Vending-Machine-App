@@ -22,14 +22,6 @@ public class Logger {
     public Logger(VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
     }
-
-    public static void main(String[] args) {
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalTime currentTime = LocalTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss a");
-        String formattedDate = currentDate.format(formatter);
-        System.out.println(formattedDate);
-    }
     public void log(double currency, double newBalance, String transactionType){
         String fileName = "log.txt";
         try(PrintWriter fileWriter = new PrintWriter(new FileOutputStream(new File(fileName),true))){

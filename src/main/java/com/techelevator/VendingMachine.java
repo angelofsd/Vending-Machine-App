@@ -11,17 +11,12 @@ public class VendingMachine {
     private double balance = 0.0;
     private final int FULL_QUANTITY = 5;
     private List<Product> inventory = new ArrayList<>();
-
-    private final int NICKEL = 5;
     private final int QUARTER = 25;
-    private final int DIME = 10;
 
 
 
-    public static void main(String[] args) {
 
 
-    }
 
     //Constructor
     public VendingMachine() {
@@ -84,22 +79,17 @@ public class VendingMachine {
                 String choice = consoleInput.nextLine();
                 int intChoice = Integer.parseInt(choice);
                 if (intChoice == 1) {
-
                     logger.log(currentTransaction.feedMoney(),balance, "FEED MONEY");
-
-                }
-                if (intChoice == 2) {
+                }else if (intChoice == 2) {
                     displayInventory();
-
                     Product selectedProduct = currentTransaction.productPurchase();
-                    logger.log(selectedProduct.getProductPrice(),balance,selectedProduct.getProductName());;
-                }
-                if (intChoice == 3) {
+                    if(selectedProduct != null){
+                        logger.log(selectedProduct.getProductPrice(),balance,selectedProduct.getProductName());;
+                    }
+                }else if (intChoice == 3) {
                     displayCoins();
                     logger.log(balance,0,"GIVE CHANGE");
                     balance = 0;
-
-
                     break;
                 }
             }catch(NumberFormatException ex){
@@ -116,12 +106,23 @@ public class VendingMachine {
 
         int quarters = changeInCents / QUARTER;
         changeInCents %= QUARTER;
-
-        int dimes = changeInCents / DIME;
-        changeInCents %= DIME;
-
-        int nickels = changeInCents / NICKEL;
-
+        int dimes = 0;
+        int nickels = 0;
+        switch(changeInCents){
+            case 5:
+                nickels++;
+                break;
+            case 10:
+                dimes++;
+                break;
+            case 15:
+                dimes++;
+                nickels++;
+                break;
+            case 20:
+                dimes++;
+                nickels += 2;
+        }
 
         System.out.println("Thank you for choosing Vendo-Matic 800. Your CHANGE is: " + balance);
         System.out.println();
@@ -145,14 +146,14 @@ public class VendingMachine {
         int numberOfQuartersNeeded = 0;
         int numberOfDimesNeeded = 0;
         int numberOfNickelsNeeded = 0;
-        while(leftOverInPennies > 0){
+        while(leftOverInPennies >= 5){
             if(leftOverInPennies >= 25){
                 leftOverInPennies -= 25;
                 numberOfQuartersNeeded++;
             }else if(leftOverInPennies > 10){
                 leftOverInPennies -= 10;
                 numberOfDimesNeeded++;
-            }else if(leftOverInPennies >= 5){
+            }else{
                 leftOverInPennies -= 5;
                 numberOfNickelsNeeded++;
             }

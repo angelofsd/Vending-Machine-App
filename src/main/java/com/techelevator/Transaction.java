@@ -16,20 +16,21 @@ public class Transaction {
         while (true) {
             Scanner consoleInput = new Scanner(System.in);
             System.out.println("Please Enter the Product Code:");
-            String codeInput = "";
-            codeInput = consoleInput.nextLine();
-
+            String codeInput = consoleInput.nextLine();
             Product chosenProduct = vendingMachine.getProductByCode(codeInput);
             if (chosenProduct == null) {
                 System.out.println("Please retry with a valid Product Code");
-            }
-            if (chosenProduct.getProductQuantity() > 0) {
-                vendingMachine.setBalance(vendingMachine.getBalance() - chosenProduct.getProductPrice());
+            }else if (chosenProduct.getProductQuantity() < 1) {
+                System.out.println("We're sorry but the chosen product is currently OUT OF STOCK");
+            }else if(vendingMachine.getBalance() < chosenProduct.getProductPrice()){
+                System.out.println("You did not enter enough money to buy " + chosenProduct.getProductName());
+                return null;
+            } else{
+                vendingMachine.setBalance((vendingMachine.getBalance() - chosenProduct.getProductPrice()));
+                vendingMachine.setBalance(Double.parseDouble(String.format("%.2f",vendingMachine.getBalance()))); //makes sure the balance is always at 2 decimal places no matter what
                 chosenProduct.setProductQuantity(chosenProduct.getProductQuantity() - 1);
                 System.out.println("Enjoy your " + chosenProduct.getProductName() + "! " + chosenProduct.getSound());
                 return chosenProduct;
-            } else {
-                System.out.println("We're sorry but the chosen product is currently OUT OF STOCK");
             }
         }
     }
@@ -46,6 +47,7 @@ public class Transaction {
                 String choice = consoleInput.nextLine();
                 int amount = Integer.parseInt(choice);
                 vendingMachine.setBalance(vendingMachine.getBalance() + amount);
+                vendingMachine.setBalance(Double.parseDouble(String.format("%.2f",vendingMachine.getBalance()))); //makes sure the balance is always at 2 decimal places no matter what
                 return amount;
             } catch (NumberFormatException e) {
                 System.out.println("Please Enter a Whole Dollar Amount!");
@@ -54,4 +56,5 @@ public class Transaction {
 
 
     }
+
 }
