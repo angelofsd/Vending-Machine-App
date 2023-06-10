@@ -46,12 +46,17 @@ public class Transaction {
             try {
                 String choice = consoleInput.nextLine();
                 int amount = Integer.parseInt(choice);
+                if(amount<=0){
+                    throw new IllegalArgumentException ("Amount must be a positive number");
+                }
                 vendingMachine.setBalance(vendingMachine.getBalance() + amount);
                 vendingMachine.setBalance(Double.parseDouble(String.format("%.2f",vendingMachine.getBalance()))); //makes sure the balance is always at 2 decimal places no matter what
                 return amount;
-            } catch (NumberFormatException e) {
+            } catch (IllegalArgumentException ex){
+                System.out.println(ex);
+            } /*catch (NumberFormatException e) {
                 System.out.println("Please Enter a Whole Dollar Amount!");
-            }
+            }*/
         }
 
 
